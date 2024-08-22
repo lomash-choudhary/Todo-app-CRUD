@@ -1,0 +1,57 @@
+<body>
+  <div id="alltodos">
+  </div>
+  <input id="inp" type="text">
+  <button onclick="addtodo()">
+    Add todo
+  </button>
+  <button onclick="deletetheFirstTodo()"> 
+    delete the first todo
+  </button>
+  <button onclick="deletetheLastTodo()">
+    delete the last todo
+  </button>
+    <script>
+      let todosArr = [];
+      function addtodo(){
+        todosArr.push({
+          title:document.querySelector("input").value
+        })
+        render();
+      }
+
+      function deletetheFirstTodo(){
+        todosArr.splice(0,1);
+        render();
+      }
+
+      function deletetheLastTodo(){
+        todosArr.pop();
+        render();
+      }
+      
+      function deletetodo(index){
+        todosArr.splice(index,1);
+        render();
+      }
+      function addthetodo(todo,index){
+        const newDiv = document.createElement("div");
+        const newHeading = document.createElement("h4");
+        const newButton = document.createElement("button");
+        newButton.innerHTML = "delete";
+        newButton.setAttribute("onclick","deletetodo(" + index + ")")
+        newHeading.innerHTML = todo.title;
+        newDiv.appendChild(newHeading);
+        newDiv.appendChild(newButton);
+        return newDiv;
+      }
+
+      function render(){
+        document.querySelector("#alltodos").innerHTML='';
+        for (let i=0; i<todosArr.length;i++){
+          const element = addthetodo(todosArr[i],i);
+          document.querySelector("#alltodos").appendChild(element);
+        }
+      }
+    </script> 
+</body>
